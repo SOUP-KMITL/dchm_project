@@ -1,13 +1,16 @@
 package com.dchm.Naive;
 
+import com.dchm.base.CalculateAble;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.mllib.classification.NaiveBayesModel;
 
+import java.util.Observer;
+
 /**
  * Created by apirat on 5/3/15 AD.
  */
-public abstract class Naive {
+public abstract class Naive implements Observer, CalculateAble {
     protected FileStatus        currentFile;
     protected JavaSparkContext  ctx;
     protected NaiveBayesModel   model;

@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 /**
  * Created by apirat on 5/3/15 AD.
  */
-public class NaiveDAO extends Naive implements Observer, CalculateAble {
+public class NaiveDAO extends Naive {
     private static Logger   log	= Logger.getLogger(NaiveDAO.class.getName());
     private HadoopIO hadoopIO;
 

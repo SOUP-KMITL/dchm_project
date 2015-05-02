@@ -1,11 +1,15 @@
 package com.dchm.base;
 
+import com.dchm.Naive.Naive;
 import com.dchm.Naive.NaiveDAO;
+import com.dchm.SOM.SOM;
+import com.dchm.SOM.SOMDAO;
 import com.dchm.configLoader.ConfigProperty;
 import com.dchm.configLoader.LoadProperty;
 import com.dchm.fileIO.FileChecker;
 import com.dchm.fileIO.FileCheckerDAO;
 import com.dchm.fileIO.HadoopIODAO;
+import com.dchm.pearson.Pearson;
 import com.dchm.pearson.PearsonDAO;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
@@ -58,14 +62,14 @@ public class Operation {
 
         fileChecker = new FileCheckerDAO(ctx, configLoader.getHdPath(), configLoader.getHdfsPath(), conf);
 
-        PearsonDAO pearson = new PearsonDAO(ctx);
-        NaiveDAO naive = new NaiveDAO(ctx, new HadoopIODAO(conf), configLoader.getHdfsPath(), configLoader.getTrainSpark
-                (),
-                configLoader
-                .getTestSpark(), configLoader.getHdPath());
+        Pearson pearson = new PearsonDAO(ctx);
+        SOM som = new SOMDAO(ctx);
+        Naive naive = new NaiveDAO(ctx, new HadoopIODAO(conf), configLoader.getHdfsPath(),
+                configLoader.getTrainSpark(), configLoader.getTestSpark(), configLoader.getHdPath());
 
         fileChecker.registerObserver(pearson);
         fileChecker.registerObserver(naive);
+        fileChecker.registerObserver(som);
 
         for(FileStatus f : fileChecker.hasFileNotReading()) {
             this.fileChecker.setCurrentFile(f);

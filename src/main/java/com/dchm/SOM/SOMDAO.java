@@ -1,7 +1,6 @@
-package com.dchm.pearson;
+package com.dchm.SOM;
 
 import com.dchm.base.CalculateAble;
-import com.dchm.fileIO.FileChecker;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.spark.api.java.JavaSparkContext;
 
@@ -11,9 +10,9 @@ import java.util.Observer;
 /**
  * Created by apirat on 5/3/15 AD.
  */
-public class PearsonDAO extends Pearson {
+public class SOMDAO extends SOM {
 
-    public PearsonDAO(JavaSparkContext ctx) {
+    public SOMDAO(JavaSparkContext ctx) {
         this.ctx = ctx;
     }
     /**
@@ -33,6 +32,6 @@ public class PearsonDAO extends Pearson {
 
     @Override
     public void calculate() {
-        System.out.println("PearsonDAO : File has Changed so RECALCULATED");
+        System.out.println("SOMDAO : File has Changed so RECALCULATED");
     }
 }
