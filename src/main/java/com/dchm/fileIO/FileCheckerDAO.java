@@ -9,6 +9,9 @@ import java.util.Observer;
 
 /**
  * Created by apirat on 5/2/15 AD.
+ *
+ * Written by MoCca
+ *
  */
 public class FileCheckerDAO extends FileChecker {
     private JavaSparkContext ctx;

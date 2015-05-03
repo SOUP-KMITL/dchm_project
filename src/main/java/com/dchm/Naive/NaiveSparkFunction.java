@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
 
 /**
  * Created by apirat on 5/3/15 AD.
+ *
+ * Written by MoCca
+ *
  */
 public class NaiveSparkFunction {
 

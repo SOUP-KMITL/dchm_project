@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 /**
  * Created by apirat on 5/2/15 AD.
+ *
+ * Written by MoCca
+ *
  */
 public interface FileActionAble {
     public ArrayList<FileStatus> listDirectory(String path);

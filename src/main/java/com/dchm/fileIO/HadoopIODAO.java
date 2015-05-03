@@ -14,6 +14,9 @@ import java.util.ArrayList;
 
 /**
  * Created by apirat on 5/2/15 AD.
+ *
+ * Written by MoCca
+ *
  */
 public class HadoopIODAO extends HadoopIO{
     private static Logger log	= Logger.getLogger(HadoopIODAO.class.getName());

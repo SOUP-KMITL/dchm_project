@@ -9,6 +9,9 @@ import java.util.Observer;
 
 /**
  * Created by apirat on 5/3/15 AD.
+ *
+ * Written by MoCca
+ *
  */
 public abstract class Naive implements Observer, CalculateAble {
     protected FileStatus        currentFile;

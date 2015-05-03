@@ -8,6 +8,9 @@ import java.util.Observer;
 
 /**
  * Created by apirat on 5/2/15 AD.
+ *
+ * Written by MoCca
+ *
  */
 public abstract class FileChecker extends Observable implements FileActionAble {
     protected String inputPath;
@@ -32,6 +35,15 @@ public abstract class FileChecker extends Observable implements FileActionAble {
         observers.remove(observer);
     }
 
+
+    /**
+     *
+     * sequential use for() { ob.update() }
+     * parallel use thread.run()
+     *
+     * @param observable    all observer to notify.
+     *
+     */
     public void notifyObservers(Observable observable) {
         System.out.println("Notify to PearsonDAO and NaiveDAO that \"File has Changed\"");
         for (Observer ob : observers) {

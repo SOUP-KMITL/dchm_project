@@ -22,6 +22,9 @@ import java.nio.file.Path;
 
 /**
  * Created by apirat on 5/2/15 AD.
+ *
+ * Written by MoCca
+ *
  */
 public class Operation {
     private ConfigProperty configLoader;
@@ -31,6 +34,15 @@ public class Operation {
         configLoader = new LoadProperty();
         loadConfigFile(configLoader, args);
     }
+
+    /**
+     * Load config.properties file to set value.
+     * if it has argument so load from that.
+     * if it has not. load default path.
+     *
+     * @param config    ConfigProperty Class.
+     * @param args      Parameters from command line.
+     */
 
     public void loadConfigFile(ConfigProperty config, String args[]) {
         if (args.length < 1) {
@@ -68,8 +80,8 @@ public class Operation {
                 configLoader.getTrainSpark(), configLoader.getTestSpark(), configLoader.getHdPath());
 
         fileChecker.registerObserver(pearson);
-        fileChecker.registerObserver(naive);
         fileChecker.registerObserver(som);
+        fileChecker.registerObserver(naive);
 
         for(FileStatus f : fileChecker.hasFileNotReading()) {
             this.fileChecker.setCurrentFile(f);

@@ -1,7 +1,5 @@
 package com.dchm.Naive;
 
-import com.dchm.base.CalculateAble;
-import com.dchm.fileIO.FileChecker;
 import com.dchm.fileIO.HadoopIO;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.log4j.Logger;
@@ -27,17 +25,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.regex.Pattern;
 
 /**
  * Created by apirat on 5/3/15 AD.
+ *
+ * Written by MoCca
+ *
  */
 public class NaiveDAO extends Naive {
     private static Logger   log	= Logger.getLogger(NaiveDAO.class.getName());
-    private HadoopIO hadoopIO;
+    private HadoopIO        hadoopIO;
 
-    private final String    OUTPUT_PATH = "result/naive/";
+    private final String    NAIVE_OUTPUT_PATH = "result/naive/";
+    private final String    REALTIME_OUTPUT_PATH = "result/realTime/";
 
     public NaiveDAO(JavaSparkContext ctx, HadoopIO hadoopIO, String hdfsPath,  String trainPath, String testPath, String
             dataPath){
@@ -252,7 +253,7 @@ public class NaiveDAO extends Naive {
     }
 
     private void upload(File file) {
-        this.hadoopIO.copyFileToHDFS(file, this.dataPath + OUTPUT_PATH);
+        this.hadoopIO.copyFileToHDFS(file, this.dataPath + NAIVE_OUTPUT_PATH);
         file.delete();
     }
 
@@ -286,14 +287,12 @@ public class NaiveDAO extends Naive {
         calculate();
     }
 
-    @Override
-    public void calculate() {
-        System.out.println("NaiveDAO : File has Changed so RECALCULATED");
+    public ArrayList<String> allDayPredict() {
+        ArrayList<String> ret = new ArrayList<String>();
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy(HH.mm.ss)");
         ArrayList<File> upFile = new ArrayList<File>();
         JavaRDD<String> getData;
         JavaRDD<Tuple3<String, ArrayList<String>, ArrayList<Vector>>> preProcess;
-
         JavaRDD<Tuple3<String, ArrayList<String>, ArrayList<Double>>> predicted;
 
         JSONObject json;
@@ -316,6 +315,10 @@ public class NaiveDAO extends Naive {
                 continue;
             for (int j = 0; j < a._3().size(); j++) {
                 if (a._3().get(j) == 1) {
+                    if (j == a._3().size() - 1) {
+                        System.out.println(a._1());
+                        ret.add(a._1());
+                    }
                     try {
                         json = new JSONObject();
                         json.put("vm", a._1());
@@ -340,7 +343,18 @@ public class NaiveDAO extends Naive {
         if(uploadFile != null) {
             upload(uploadFile);
         }
-        System.out.println("Done Naive file\n-----------------------");
+        return ret;
+    }
+
+    @Override
+    public void calculate() {
+        FindImpact pearsonImpact = new PearsonImpact(hadoopIO, this.getDataPath() + REALTIME_OUTPUT_PATH);
+        ArrayList<String> realTimeWarning = allDayPredict();
+        for (String name : realTimeWarning) {
+            pearsonImpact.setVmName(name);
+            pearsonImpact.run();
+        }
+        System.out.println("Done Naive file");
     }
 
 }

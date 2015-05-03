@@ -5,6 +5,9 @@ import org.apache.hadoop.fs.FileSystem;
 
 /**
  * Created by apirat on 5/2/15 AD.
+ *
+ * Written by MoCca
+ *
  */
 public abstract class HadoopIO implements HadoopDoAble {
     protected FileSystem fs;
