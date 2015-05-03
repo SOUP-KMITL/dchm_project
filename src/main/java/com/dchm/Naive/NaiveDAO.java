@@ -35,10 +35,9 @@ import java.util.regex.Pattern;
  */
 public class NaiveDAO extends Naive {
     private static Logger   log	= Logger.getLogger(NaiveDAO.class.getName());
-    private HadoopIO        hadoopIO;
 
     private final String    NAIVE_OUTPUT_PATH = "result/naive/";
-    private final String    REALTIME_OUTPUT_PATH = "result/realTime/";
+    private final String    REALTIME_OUTPUT_PATH = "result/correlation/";
 
     public NaiveDAO(JavaSparkContext ctx, HadoopIO hadoopIO, String hdfsPath,  String trainPath, String testPath, String
             dataPath){
@@ -252,18 +251,21 @@ public class NaiveDAO extends Naive {
 
     }
 
-    private void upload(File file) {
+    @Override
+    protected void upload(File file) {
         this.hadoopIO.copyFileToHDFS(file, this.dataPath + NAIVE_OUTPUT_PATH);
         file.delete();
     }
 
-    private File writeFile(ArrayList<JSONObject> input, Long filename) {
+    @Override
+    protected File writeFile(ArrayList<JSONObject> input, Long filename) {
         try {
             File file = new File(filename.toString());
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             for (JSONObject j : input) {
                 bw.write(j.toString() + "\n");
             }
+            bw.flush();
             bw.close();
             return file;
         } catch (IOException e) {
@@ -356,5 +358,4 @@ public class NaiveDAO extends Naive {
         }
         System.out.println("Done Naive file");
     }
-
 }

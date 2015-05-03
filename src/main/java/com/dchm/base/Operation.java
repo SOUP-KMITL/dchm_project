@@ -8,6 +8,7 @@ import com.dchm.configLoader.ConfigProperty;
 import com.dchm.configLoader.LoadProperty;
 import com.dchm.fileIO.FileChecker;
 import com.dchm.fileIO.FileCheckerDAO;
+import com.dchm.fileIO.HadoopIO;
 import com.dchm.fileIO.HadoopIODAO;
 import com.dchm.pearson.Pearson;
 import com.dchm.pearson.PearsonDAO;
@@ -74,7 +75,8 @@ public class Operation {
 
         fileChecker = new FileCheckerDAO(ctx, configLoader.getHdPath(), configLoader.getHdfsPath(), conf);
 
-        Pearson pearson = new PearsonDAO(ctx);
+        Pearson pearson = new PearsonDAO(ctx, new HadoopIODAO(conf), configLoader.getHdfsPath(),
+                configLoader.getHdPath());
         SOM som = new SOMDAO(ctx);
         Naive naive = new NaiveDAO(ctx, new HadoopIODAO(conf), configLoader.getHdfsPath(),
                 configLoader.getTrainSpark(), configLoader.getTestSpark(), configLoader.getHdPath());
@@ -84,6 +86,7 @@ public class Operation {
         fileChecker.registerObserver(naive);
 
         for(FileStatus f : fileChecker.hasFileNotReading()) {
+            System.out.println(f.getPath().toString() + "\t" + f.getModificationTime());
             this.fileChecker.setCurrentFile(f);
         }
 

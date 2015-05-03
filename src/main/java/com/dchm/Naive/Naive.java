@@ -1,10 +1,14 @@
 package com.dchm.Naive;
 
 import com.dchm.base.CalculateAble;
+import com.dchm.fileIO.HadoopIO;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.mllib.classification.NaiveBayesModel;
+import org.codehaus.jettison.json.JSONObject;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Observer;
 
 /**
@@ -17,13 +21,18 @@ public abstract class Naive implements Observer, CalculateAble {
     protected FileStatus        currentFile;
     protected JavaSparkContext  ctx;
     protected NaiveBayesModel   model;
+    protected HadoopIO          hadoopIO;
 
     protected String		    hdfsPath;
     protected String			dataPath;
     protected String			trainPath;
     protected String			testPath;
 
-    public abstract void test();
+    protected abstract void upload(File file);
+
+    protected abstract File writeFile(ArrayList<JSONObject> input, Long filename);
+
+    protected abstract void test();
 
     public FileStatus getCurrentFile() {
         return currentFile;

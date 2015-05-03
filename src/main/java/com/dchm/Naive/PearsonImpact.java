@@ -35,9 +35,8 @@ public class PearsonImpact extends FindImpact {
                                 long filename) throws IOException {
         Path folder = Paths.get(path, subPath).toAbsolutePath().normalize();
         folder = Files.createDirectories(folder);
-        Path filePath = folder.resolve(filename + ".json");
-        BufferedWriter out = Files.newBufferedWriter(filePath,
-                StandardCharsets.UTF_8, StandardOpenOption.CREATE,
+        Path filePath = folder.resolve(filename+"");
+        BufferedWriter out = Files.newBufferedWriter(filePath,StandardCharsets.UTF_8, StandardOpenOption.CREATE,
                 StandardOpenOption.APPEND);
         out.write(data);
         out.flush();
@@ -94,7 +93,7 @@ public class PearsonImpact extends FindImpact {
     private JSONArray read_pearson(String mor) {
         ArrayList<String> fileFS = new ArrayList<String>();
 
-        for (FileStatus in : hadoopIO.listDirectory(folder + "/Pearson/")) {
+        for (FileStatus in : hadoopIO.listDirectory(folder)) {
             fileFS.add(in.getPath().toString());
         }
         ArrayList<String> data;
