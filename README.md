@@ -4,6 +4,8 @@ Refactoring state
 
 Todo
 
+[] Main Organizing: while() select choice etc..
+
 [] Pearson's Calculate
 
 [] Self-Organizing map Calculate
