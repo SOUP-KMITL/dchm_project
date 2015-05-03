@@ -6,17 +6,15 @@ Todo
 
 [] Main Organizing: while() select choice etc..
 
-[] Pearson's Calculate
-
 [] Self-Organizing map Calculate
-
-[] Read Pearson logging when Naive Bayes warning
 
 [] Monitoring Status: cpu > 80%, etc..
 
-[] Real-Time: Optional ..
-
 Done
+
+[X] Pearson's Calculate
+
+[-] Read Pearson logging when Naive Bayes warning { 80% }
 
 [X] Naive Bayes Calculate
 
