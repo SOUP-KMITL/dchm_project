@@ -4,7 +4,7 @@ import com.dchm.base.CalculateAble;
 import com.dchm.fileIO.HadoopIO;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.codehaus.jettison.json.JSONObject;
+import org.codehaus.jettison.json.JSONArray;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -21,11 +21,10 @@ public abstract class Pearson implements Observer, CalculateAble {
 
     protected String		    hdfsPath;
     protected String			dataPath;
-
-
+    
     protected abstract void upload(File file);
 
-    protected abstract void writeFile(ArrayList<JSONObject> input, Path filePath);
+    protected abstract void writeFile(ArrayList<JSONArray> input, Path filePath);
 
     public FileStatus getCurrentFile() {
         return currentFile;

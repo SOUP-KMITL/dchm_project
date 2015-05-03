@@ -72,7 +72,7 @@ public class PearsonDAO extends Pearson {
         }
         JavaRDD<String> data = PearsonSparkFunction.prepareMap(ctx.textFile(this.currentFile.getPath().toString()));
         //JSONArray jsonArr = new JSONArray();
-        ArrayList<JSONObject> jsonList;
+        ArrayList<JSONArray> jsonList;
         JavaRDD<Integer> size = PearsonSparkFunction.prepareData(data);
         if (size.collect().size() >= 2) {
             JavaPairRDD<String, ArrayList<Double[]>> pair = PearsonSparkFunction.pairData(data,
@@ -84,7 +84,7 @@ public class PearsonDAO extends Pearson {
             for (int i = 0; i < loop; i++) {
                 series1_X = ctx.parallelizeDoubles(new ArrayList<Double>(Arrays.asList(value.get(i)._2().get(0))));
                 series2_X = ctx.parallelizeDoubles(new ArrayList<Double>(Arrays.asList(value.get(i)._2().get(1))));
-                jsonList = new ArrayList<JSONObject>();
+                jsonList = new ArrayList<JSONArray>();
                 for (int j = i + 1; j < loop; j++) {
                     series1_Y = ctx.parallelizeDoubles(new ArrayList<Double>(Arrays.asList(value.get(j)._2().get(1))));
                     series2_Y = ctx.parallelizeDoubles(new ArrayList<Double>(Arrays.asList(value.get(j)._2().get(0))));
@@ -95,12 +95,42 @@ public class PearsonDAO extends Pearson {
                     correlation1 = Statistics.corr(series1_X.srdd(), series1_Y.srdd(), "pearson");
                     correlation2 = Statistics.corr(series2_X.srdd(), series2_Y.srdd(), "pearson");
 
-                    JSONObject json = new JSONObject();
+//                    JSONObject json = new JSONObject();
+                    JSONArray jArry = new JSONArray();
+                    JSONObject objA = new JSONObject();
+                    JSONObject objB = new JSONObject();
+                    JSONObject objP = new JSONObject();
                     try {
-                        json.put("vm", value.get(i)._1() + "@" + value.get(j)._1());
-                        json.put("Tx-Rx", correlation1.toString());
-                        json.put("Rx-Tx", correlation2.toString());
-                        jsonList.add(json);
+
+                        objA.put("name", value.get(i)._1());
+                        objA.put("id", "");
+                        objA.put("type", "send");
+                        objB.put("name", value.get(j)._1());
+                        objB.put("id", "");
+                        objB.put("type", "receive");
+                        objP.put("Pearson", correlation1.toString());
+                        jArry.put(objA);
+                        jArry.put(objB);
+                        jArry.put(objP);
+                        jsonList.add(jArry);
+                        jArry = new JSONArray();
+                        objA = new JSONObject();
+                        objB = new JSONObject();
+                        objP = new JSONObject();
+                        objA.put("name", value.get(i)._1());
+                        objA.put("id", "");
+                        objA.put("type", "receive");
+                        objB.put("name", value.get(j)._1());
+                        objB.put("id", "");
+                        objB.put("type", "send");
+                        objP.put("Pearson", correlation2.toString());
+                        jArry.put(objA);
+                        jArry.put(objB);
+                        jArry.put(objP);
+                        jsonList.add(jArry);
+//                        json.put("vm", value.get(i)._1() + "@" + value.get(j)._1());
+//                        json.put("Tx-Rx", correlation1.toString());
+//                        json.put("Rx-Tx", correlation2.toString());
                     } catch (JSONException e) {
                         log.error("JSON Create in Pearson", e);
                     }
@@ -126,12 +156,12 @@ public class PearsonDAO extends Pearson {
      */
 
     @Override
-    protected void writeFile(ArrayList<JSONObject> input, Path filePath) {
+    protected void writeFile(ArrayList<JSONArray> input, Path filePath) {
         try {
             BufferedWriter bw = Files.newBufferedWriter(filePath,
                     StandardCharsets.UTF_8, StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND);
-            for (JSONObject j : input) {
+            for (JSONArray j : input) {
                 bw.write(j.toString() + "\n");
             }
             bw.flush();
