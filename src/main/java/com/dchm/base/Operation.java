@@ -77,7 +77,8 @@ public class Operation {
 
         Pearson pearson = new PearsonDAO(ctx, new HadoopIODAO(conf), configLoader.getHdfsPath(),
                 configLoader.getHdPath());
-        SOM som = new SOMDAO(ctx);
+        SOM som = new SOMDAO(ctx, new HadoopIODAO(conf), configLoader.getHdfsPath(),
+                configLoader.getHdPath());
         Naive naive = new NaiveDAO(ctx, new HadoopIODAO(conf), configLoader.getHdfsPath(),
                 configLoader.getTrainSpark(), configLoader.getTestSpark(), configLoader.getHdPath());
 
