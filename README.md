@@ -4,17 +4,18 @@ Refactoring state
 
 Todo
 
-[] Main Organizing: while() select choice etc..
-
-[] Self-Organizing map Calculate
-
-[] Monitoring Status: cpu > 80%, etc..
 
 Done
 
+[X] Main Organizing: while() select choice etc..
+
+[X] Self-Organizing map Calculate
+
+[X] Monitoring Status: cpu > 80%, etc..
+
 [X] Pearson's Calculate
 
-[-] Read Pearson logging when Naive Bayes warning { 80% }
+[X] Read Pearson logging when Naive Bayes warning { 80% }
 
 [X] Naive Bayes Calculate
 
