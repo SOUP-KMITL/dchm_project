@@ -25,6 +25,16 @@ public class HadoopIODAO extends HadoopIO{
         this.conf = conf;
     }
 
+    public void deleteFile(String path) {
+        try {
+            fs = FileSystem.get(conf);
+            fs.delete(new Path(path), true);
+            fs.close();
+        } catch (IOException e) {
+            log.error("Can't delete file", e);
+        }
+    }
+
     public boolean copyFileToHDFS(File file, String path) {
         try {
             fs = FileSystem.get(conf);

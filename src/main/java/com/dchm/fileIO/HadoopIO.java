@@ -28,4 +28,6 @@ public abstract class HadoopIO implements HadoopDoAble {
     public void setConf(Configuration conf) {
         this.conf = conf;
     }
+
+    public abstract void deleteFile(String path);
 }

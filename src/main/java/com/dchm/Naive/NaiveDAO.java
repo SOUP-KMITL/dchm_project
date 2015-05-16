@@ -350,7 +350,8 @@ public class NaiveDAO extends Naive {
 
     @Override
     public void calculate() {
-        FindImpact pearsonImpact = new PearsonImpact(hadoopIO, this.getDataPath() + REALTIME_OUTPUT_PATH);
+        System.out.println("Naive : File has Changed so RECALCULATED");
+        FindImpact pearsonImpact = new PearsonImpact(hadoopIO, this.dataPath ,this.getDataPath() + REALTIME_OUTPUT_PATH);
         ArrayList<String> realTimeWarning = allDayPredict();
         for (String name : realTimeWarning) {
             pearsonImpact.setVmName(name);

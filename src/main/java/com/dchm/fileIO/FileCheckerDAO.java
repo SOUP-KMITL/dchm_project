@@ -4,6 +4,10 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.spark.api.java.JavaSparkContext;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observer;
 
@@ -77,8 +81,24 @@ public class FileCheckerDAO extends FileChecker {
         return fileStatuses == null ? new ArrayList<FileStatus>() : fileStatuses;
     }
 
+    @Override
     public String getNotReadingFile() {
         return null;
+    }
+
+    @Override
+    public void updateLogFile(String newValue) {
+        File file = new File(LOG_FILENAME);
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            bw.write(newValue);
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        hadoopIO.deleteFile(inputPath + LOG_FILENAME);
+        hadoopIO.copyFileToHDFS(file, inputPath);
+        System.out.println("Done : Update log file");
     }
 
 }

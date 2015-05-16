@@ -55,6 +55,8 @@ public abstract class FileChecker extends Observable implements FileActionAble {
 
     public abstract void setCurrentFile(FileStatus currentFile);
 
+    public abstract void updateLogFile(String path);
+
     public void setInputPath(String inputPath) {
         this.inputPath = inputPath;
     }

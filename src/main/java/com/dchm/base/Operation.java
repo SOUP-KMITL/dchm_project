@@ -89,6 +89,7 @@ public class Operation {
         for(FileStatus f : fileChecker.hasFileNotReading()) {
             System.out.println(f.getPath().toString() + "\t" + f.getModificationTime());
             this.fileChecker.setCurrentFile(f);
+            fileChecker.updateLogFile(f.getModificationTime()+"");
         }
 
         System.out.println("Hello, World");

@@ -2,6 +2,8 @@ package com.dchm.Naive;
 
 import com.dchm.fileIO.HadoopIO;
 
+import java.io.File;
+
 /**
  * Created by apirat on 5/3/15 AD.
  *
@@ -13,6 +15,7 @@ public abstract class FindImpact {
     protected int numberOfFilePearson;
     protected int percentage = 50;
     protected String vmName;
+    protected String dataPath;
     protected HadoopIO hadoopIO;
 
     public String getVmName() {
@@ -25,5 +28,6 @@ public abstract class FindImpact {
 
     public abstract void run();
 
+    protected abstract void upload(File file);
 
 }

@@ -8,6 +8,7 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -25,13 +26,15 @@ import java.util.*;
 
 public class PearsonImpact extends FindImpact {
     private static Logger log	= Logger.getLogger(PearsonImpact.class.getName());
+    private final String IMPACT_PATH = "result/realTime/Naive_Realtime/";
 
-    public PearsonImpact(HadoopIO hadoopIO, String folder) {
+    public PearsonImpact(HadoopIO hadoopIO, String dataPath, String folder) {
         this.folder = folder;
         this.hadoopIO = hadoopIO;
+        this.dataPath = dataPath;
     }
 
-    public void writeResultFile(String data, String path, String subPath,
+    public Path writeResultFile(String data, String path, String subPath,
                                 long filename) throws IOException {
         Path folder = Paths.get(path, subPath).toAbsolutePath().normalize();
         folder = Files.createDirectories(folder);
@@ -41,12 +44,17 @@ public class PearsonImpact extends FindImpact {
         out.write(data);
         out.flush();
         out.close();
+        return filePath;
     }
 
     @Override
     public void run() {
+        Path filePath;
         long filename = System.currentTimeMillis();
         JSONArray pearson = read_pearson(vmName);
+        if(pearson.length() == 0) {
+            return;
+        }
         JSONArray jsonArrTmp = new JSONArray();
         JSONArray tmp;
         JSONObject jsonObjTmp = null;
@@ -74,25 +82,28 @@ public class PearsonImpact extends FindImpact {
                 jsonArrTmp = new JSONArray(me.getKey().toString());
                 jsonObjTmp = new JSONObject();
                 jsonObjTmp.put("pair", jsonArrTmp);
-                jsonObjTmp.put("found",
-                        Integer.parseInt(me.getValue().toString()));
-
+                jsonObjTmp.put("found", Integer.parseInt(me.getValue().toString()));
                 jsonObjTmp.put("Total", numberOfFilePearson);
             } catch (JSONException e) {
                 log.error("JSON EXCEPTION", e);
             }
         }
         try {
-            writeResultFile(jsonObjTmp.toString(), "data", "Naive_Realtime",
-                    filename);
+            filePath = writeResultFile(jsonObjTmp.toString(), "data", "Naive_Realtime", filename);
+            upload(filePath.toFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    protected void upload(File file) {
+        this.hadoopIO.copyFileToHDFS(file, this.dataPath + IMPACT_PATH);
+        file.delete();
+    }
+
     private JSONArray read_pearson(String mor) {
         ArrayList<String> fileFS = new ArrayList<String>();
-
         for (FileStatus in : hadoopIO.listDirectory(folder)) {
             fileFS.add(in.getPath().toString());
         }
@@ -110,17 +121,17 @@ public class PearsonImpact extends FindImpact {
                     jsonArray = new JSONArray(str);
                     vm1 = jsonArray.getJSONObject(0);
                     vm2 = jsonArray.getJSONObject(1);
-                    if (vm1.getString("id").equals(mor)
-                            || vm2.getString("id").equals(mor)) {
+                    if (vm1.getString("name").equals(mor)
+                            || vm2.getString("name").equals(mor)) {
                         if (Double.parseDouble(jsonArray.getJSONObject(2)
                                 .getString("Pearson")) > 0.7) {
                             jsonArrayTmp = new JSONArray();
-                            if (vm1.getString("id").equals(mor)) {
+                            if (vm1.getString("name").equals(mor)) {
                                 vm1.put("status", "warning");
                             } else {
                                 vm1.put("status", "correlate");
                             }
-                            if (vm2.get("id").equals(mor)) {
+                            if (vm2.get("name").equals(mor)) {
                                 vm2.put("status", "warning");
                             } else {
                                 vm2.put("status", "correlate");

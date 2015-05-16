@@ -61,6 +61,7 @@ public class PearsonDAO extends Pearson {
 
     @Override
     public void calculate() {
+        System.out.println("Pearson : File has Changed so RECALCULATED");
         String[] name = name = this.currentFile.getPath().toString().split("/");
         Path filePath = null;
         Path folder = Paths.get(this.LOCAL_DATA_PATH, this.LOCAL_DATA_SUBPATH).toAbsolutePath().normalize();
