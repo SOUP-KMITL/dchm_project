@@ -1,6 +1,6 @@
-package com.dchm.Naive;
+package com.dchm.naive;
 
-import com.dchm.fileIO.HadoopIO;
+import com.dchm.fileio.HadoopIO;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONArray;

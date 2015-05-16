@@ -1,4 +1,4 @@
-package com.dchm.Naive;
+package com.dchm.naive;
 
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;

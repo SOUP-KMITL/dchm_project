@@ -1,4 +1,4 @@
-package com.dchm.configLoader;
+package com.dchm.configloader;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -1,6 +1,6 @@
-package com.dchm.Naive;
+package com.dchm.naive;
 
-import com.dchm.fileIO.HadoopIO;
+import com.dchm.fileio.HadoopIO;
 
 import java.io.File;
 

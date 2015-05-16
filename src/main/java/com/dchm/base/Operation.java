@@ -1,15 +1,16 @@
 package com.dchm.base;
 
-import com.dchm.Naive.Naive;
-import com.dchm.Naive.NaiveDAO;
-import com.dchm.SOM.SOM;
-import com.dchm.SOM.SOMDAO;
-import com.dchm.configLoader.ConfigProperty;
-import com.dchm.configLoader.LoadProperty;
-import com.dchm.fileIO.FileChecker;
-import com.dchm.fileIO.FileCheckerDAO;
-import com.dchm.fileIO.HadoopIO;
-import com.dchm.fileIO.HadoopIODAO;
+import com.dchm.fileio.HadoopIO;
+import com.dchm.naive.Naive;
+import com.dchm.naive.NaiveDAO;
+import com.dchm.performance.FindPerformance;
+import com.dchm.som.SOM;
+import com.dchm.som.SOMDAO;
+import com.dchm.configloader.ConfigProperty;
+import com.dchm.configloader.LoadProperty;
+import com.dchm.fileio.FileChecker;
+import com.dchm.fileio.FileCheckerDAO;
+import com.dchm.fileio.HadoopIODAO;
 import com.dchm.pearson.Pearson;
 import com.dchm.pearson.PearsonDAO;
 import org.apache.hadoop.conf.Configuration;
@@ -20,6 +21,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.Scanner;
 
 /**
  * Created by apirat on 5/2/15 AD.
@@ -66,13 +68,14 @@ public class Operation {
         }
     }
 
-    public void run() {
-        SparkConf sparkConf = new SparkConf().setAppName("JAVASPARK");
-        JavaSparkContext ctx = new JavaSparkContext(sparkConf);
-        Configuration conf = new Configuration();
-        conf.set("fs.defaultFS", configLoader.getHdfsPath());
+    private void printCmd() {
+        System.out.println("------ command -------");
+        System.out.println("1. Find Status");
+        System.out.println("2. RealTime Monitoring");
+        System.out.println("0. exit");
+    }
 
-
+    private void runMonitoring(JavaSparkContext ctx, Configuration conf) {
         fileChecker = new FileCheckerDAO(ctx, configLoader.getHdPath(), configLoader.getHdfsPath(), conf);
 
         Pearson pearson = new PearsonDAO(ctx, new HadoopIODAO(conf), configLoader.getHdfsPath(),
@@ -86,13 +89,88 @@ public class Operation {
         fileChecker.registerObserver(som);
         fileChecker.registerObserver(naive);
 
-        for(FileStatus f : fileChecker.hasFileNotReading()) {
+        for (FileStatus f : fileChecker.hasFileNotReading()) {
             System.out.println(f.getPath().toString() + "\t" + f.getModificationTime());
             this.fileChecker.setCurrentFile(f);
-            fileChecker.updateLogFile(f.getModificationTime()+"");
+            fileChecker.updateLogFile(f.getModificationTime() + "");
+        }
+    }
+
+    private void findStatus(JavaSparkContext ctx, Configuration conf) {
+        String dataPath = configLoader.getHdfsPath();
+        FindPerformance perf = new FindPerformance(ctx, new HadoopIODAO(conf), dataPath);
+        Scanner sc = new Scanner(System.in);
+        int input;
+        System.out.print("1. Find CPU\n2. Find Memory\nEnter : ");
+        if (!sc.hasNextInt()) {
+            System.out.print("Invalid input type. Try again : ");
+            sc.next();
+            return;
+        }
+        input = sc.nextInt();
+        switch (input) {
+            case 1 :
+                perf.setPerfID(2);
+                break;
+            case 2 :
+                perf.setPerfID(24);
+                break;
+        }
+        System.out.print("Enter percent : ");
+        if (!sc.hasNextInt()) {
+            System.out.print("Invalid input type. Try again : ");
+            sc.next();
+            return;
+        }
+        input = sc.nextInt();
+        perf.setPercent(input);
+        System.out.print("Enter interval [0-86400] : ");
+        if (!sc.hasNextInt()) {
+            System.out.print("Invalid input type. Try again : ");
+            sc.next();
+            return;
+        }
+        input = sc.nextInt();
+        if(input < 0 || input > 86400) {
+            System.out.println("Input is out of range");
+            return;
+        }
+        perf.setInterval(input);
+        perf.run();
+    }
+
+    public void run() {
+        Scanner sc = new Scanner(System.in);
+        SparkConf sparkConf = new SparkConf().setAppName("JAVASPARK");
+        JavaSparkContext ctx = new JavaSparkContext(sparkConf);
+        Configuration conf = new Configuration();
+        conf.set("fs.defaultFS", configLoader.getHdfsPath());
+
+        boolean runFlag = true;
+        int input;
+
+        while (runFlag) {
+            printCmd();
+            if (!sc.hasNextInt()) {
+                System.out.print("Invalid input type. Try again : ");
+                sc.next();
+                continue;
+            }
+            input = sc.nextInt();
+            switch (input) {
+                case 0 :
+                    runFlag = false;
+                    break;
+                case 1 :
+                    findStatus(ctx, conf);
+                    break;
+                case 2 :
+                    runMonitoring(ctx, conf);
+                    break;
+            }
+
         }
 
-        System.out.println("Hello, World");
     }
 
 

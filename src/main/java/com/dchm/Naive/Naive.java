@@ -1,7 +1,7 @@
-package com.dchm.Naive;
+package com.dchm.naive;
 
 import com.dchm.base.CalculateAble;
-import com.dchm.fileIO.HadoopIO;
+import com.dchm.fileio.HadoopIO;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.mllib.classification.NaiveBayesModel;

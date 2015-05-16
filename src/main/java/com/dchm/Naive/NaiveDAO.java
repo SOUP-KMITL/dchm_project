@@ -1,6 +1,6 @@
-package com.dchm.Naive;
+package com.dchm.naive;
 
-import com.dchm.fileIO.HadoopIO;
+import com.dchm.fileio.HadoopIO;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -47,8 +47,8 @@ public class NaiveDAO extends Naive {
         this.trainPath = this.hdfsPath + trainPath;
         this.testPath = this.hdfsPath + testPath;
         this.dataPath = this.hdfsPath + dataPath;
-        System.out.println(this.dataPath);
-        JavaRDD<LabeledPoint> training = NaiveSparkFunction.ParseStringToLabeledPoint(ctx.textFile(trainPath));
+        System.out.println("train Path=" + this.trainPath);
+        JavaRDD<LabeledPoint> training = NaiveSparkFunction.ParseStringToLabeledPoint(ctx.textFile(this.trainPath));
         this.model = NaiveBayes.train(training.rdd(), 1.0);
         test();
     }

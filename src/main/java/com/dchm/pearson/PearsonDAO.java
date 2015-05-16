@@ -1,8 +1,6 @@
 package com.dchm.pearson;
 
-import com.dchm.base.CalculateAble;
-import com.dchm.fileIO.FileChecker;
-import com.dchm.fileIO.HadoopIO;
+import com.dchm.fileio.HadoopIO;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaDoubleRDD;
@@ -17,7 +15,6 @@ import scala.Tuple2;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

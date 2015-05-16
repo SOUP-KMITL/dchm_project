@@ -1,8 +1,7 @@
-package com.dchm.fileIO;
+package com.dchm.fileio;
 
 import org.apache.hadoop.fs.FileStatus;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
