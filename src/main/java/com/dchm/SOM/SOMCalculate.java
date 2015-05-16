@@ -21,9 +21,10 @@ public class SOMCalculate {
 	private double D[];
 
 	private double w[][];
-	
-	public SOMCalculate(int numVectors, int Maximum_Clusters, double Alpha_Start,
-			double Minimum_Alpha, double Decay_Rate, int Vector_Length) {
+
+	public SOMCalculate(int numVectors, int Maximum_Clusters,
+			double Alpha_Start, double Minimum_Alpha, double Decay_Rate,
+			int Vector_Length) {
 		mVectors = numVectors;
 		mVecLen = Vector_Length;
 		mAlpha = Alpha_Start;
@@ -40,7 +41,13 @@ public class SOMCalculate {
 		}
 		return;
 	}
-	
+
+	/**
+	 * train data to SOM
+	 * 
+	 * @param VMdata
+	 *            VM network information
+	 */
 	public void Train(List<Tuple2<String, ArrayList<Double[]>>> VMdata) {
 		int Iterations = 0;
 		int i;
@@ -51,10 +58,12 @@ public class SOMCalculate {
 			Iterations += 1;
 			for (VecNum = 0; VecNum < mVectors; VecNum++) {
 				List<Double> networkData;
-				if(VecNum%2==0){
-					networkData = Arrays.asList(VMdata.get(VecNum/2)._2().get(0));
-				}else{
-					networkData = Arrays.asList(VMdata.get(VecNum/2)._2().get(1));
+				if (VecNum % 2 == 0) {
+					networkData = Arrays.asList(VMdata.get(VecNum / 2)._2()
+							.get(0));
+				} else {
+					networkData = Arrays.asList(VMdata.get(VecNum / 2)._2()
+							.get(1));
 				}
 				ComputeInput(networkData);
 				DMin = Minimum(D);
@@ -69,23 +78,33 @@ public class SOMCalculate {
 		return;
 	}
 
-	public String Test(List<Tuple2<String, ArrayList<Double[]>>> VMdata) throws JSONException {
+	/**
+	 * Test data
+	 * 
+	 * @param VMdata
+	 *            VM network information
+	 * @return string result form SOM to cluster VM
+	 * @throws JSONException
+	 */
+
+	public String Test(List<Tuple2<String, ArrayList<Double[]>>> VMdata)
+			throws JSONException {
 		int VecNum;
 		int DMin;
 		JSONObject objA;
 		StringBuilder data = new StringBuilder();
 		for (VecNum = 0; VecNum < mVectors; VecNum++) {
 			List<Double> networkData;
-			if(VecNum%2==0){
-				networkData = Arrays.asList(VMdata.get(VecNum/2)._2().get(0));
-			}else{
-				networkData = Arrays.asList(VMdata.get(VecNum/2)._2().get(1));
+			if (VecNum % 2 == 0) {
+				networkData = Arrays.asList(VMdata.get(VecNum / 2)._2().get(0));
+			} else {
+				networkData = Arrays.asList(VMdata.get(VecNum / 2)._2().get(1));
 			}
 			objA = new JSONObject();
 			ComputeInput(networkData);
 			DMin = Minimum(D);
-//			objA.put("name", vmNetworkList.get((VecNum / 2)).getName());
-			objA.put("id", VMdata.get(VecNum/2)._1());
+			// objA.put("name", vmNetworkList.get((VecNum / 2)).getName());
+			objA.put("id", VMdata.get(VecNum / 2)._1());
 			if (VecNum % 2 == 0) {
 				objA.put("type", "receive");
 				objA.put("category", DMin);
@@ -122,9 +141,5 @@ public class SOMCalculate {
 			}
 		}
 		return winner;
-	}
-
-	public int Iterations() {
-		return mIterations;
 	}
 }

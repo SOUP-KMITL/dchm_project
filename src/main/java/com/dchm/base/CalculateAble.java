@@ -8,5 +8,8 @@ package com.dchm.base;
  */
 public interface CalculateAble {
 
+	/**
+	 * calculate result from algorithm
+	 */
     public void calculate();
 }

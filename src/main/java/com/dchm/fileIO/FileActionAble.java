@@ -12,10 +12,27 @@ import java.util.ArrayList;
  *
  */
 public interface FileActionAble {
-    public ArrayList<FileStatus> listDirectory(String path);
+	/**
+	 * List file in directory
+	 * 
+	 * @param path
+	 *            path of directory
+	 * @return array list of file
+	 */
+	public ArrayList<FileStatus> listDirectory(String path);
 
-    public String getNotReadingFile();
+	/**
+	 * Get get file is not reading
+	 * 
+	 * @return file name
+	 */
+	public String getNotReadingFile();
 
-    public ArrayList<FileStatus> hasFileNotReading();
+	/**
+	 * check file is not read
+	 * 
+	 * @return array list of file name
+	 */
+	public ArrayList<FileStatus> hasFileNotReading();
 
 }

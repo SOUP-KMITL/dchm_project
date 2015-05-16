@@ -59,6 +59,7 @@ public class FileCheckerDAO extends FileChecker {
         }
     }
 
+    
     public ArrayList<FileStatus> hasFileNotReading() {
         ArrayList<FileStatus> fileStatuses = listDirectory(inputPath + PERF_FILENAME);
         ArrayList<String> hasRead = hadoopIO.readFileFromHDFS(inputPath + LOG_FILENAME);

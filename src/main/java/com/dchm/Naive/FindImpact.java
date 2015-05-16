@@ -11,23 +11,30 @@ import java.io.File;
  *
  */
 public abstract class FindImpact {
-    protected String folder;
-    protected int numberOfFilePearson;
-    protected int percentage = 50;
-    protected String vmName;
-    protected String dataPath;
-    protected HadoopIO hadoopIO;
+	protected String folder;
+	protected int numberOfFilePearson;
+	protected int percentage = 50;
+	protected String vmName;
+	protected String dataPath;
+	protected HadoopIO hadoopIO;
 
-    public String getVmName() {
-        return vmName;
-    }
+	public String getVmName() {
+		return vmName;
+	}
 
-    public void setVmName(String vmName) {
-        this.vmName = vmName;
-    }
+	public void setVmName(String vmName) {
+		this.vmName = vmName;
+	}
 
-    public abstract void run();
+	public abstract void run();
 
-    protected abstract void upload(File file);
+	/**
+	 * upload file to HDFS
+	 * 
+	 * @param file
+	 *            file to upload
+	 */
+
+	protected abstract void upload(File file);
 
 }

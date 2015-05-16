@@ -33,6 +33,16 @@ public class PearsonImpact extends FindImpact {
         this.hadoopIO = hadoopIO;
         this.dataPath = dataPath;
     }
+    
+    /**
+     * write result after check pearson data
+     * @param data data to write
+     * @param path path of file
+     * @param subPath sub path of file
+     * @param filename name of file
+     * @return path of success file
+     * @throws IOException
+     */
 
     public Path writeResultFile(String data, String path, String subPath,
                                 long filename) throws IOException {
@@ -101,6 +111,12 @@ public class PearsonImpact extends FindImpact {
         this.hadoopIO.copyFileToHDFS(file, this.dataPath + IMPACT_PATH);
         file.delete();
     }
+    
+    /**
+     * check pearson result by VMmor if correlation between VMmor and other VMmor > 0.7 and this VM to JASONarray
+     * @param mor VM information
+     * @return JSONarray of VM
+     */
 
     private JSONArray read_pearson(String mor) {
         ArrayList<String> fileFS = new ArrayList<String>();

@@ -10,24 +10,56 @@ import org.apache.hadoop.fs.FileSystem;
  *
  */
 public abstract class HadoopIO implements HadoopDoAble {
-    protected FileSystem fs;
-    protected Configuration conf;
+	protected FileSystem fs;
+	protected Configuration conf;
 
-    public FileSystem getFs() {
-        return fs;
-    }
+	/**
+	 * Get file system
+	 * 
+	 * @return file system
+	 */
+	public FileSystem getFs() {
+		return fs;
+	}
 
-    public void setFs(FileSystem fs) {
-        this.fs = fs;
-    }
+	/**
+	 * Set file system
+	 * 
+	 * @param fs
+	 *            file system
+	 */
 
-    public Configuration getConf() {
-        return conf;
-    }
+	public void setFs(FileSystem fs) {
+		this.fs = fs;
+	}
 
-    public void setConf(Configuration conf) {
-        this.conf = conf;
-    }
+	/**
+	 * Get configuration
+	 * 
+	 * @return configuration
+	 */
 
-    public abstract void deleteFile(String path);
+	public Configuration getConf() {
+		return conf;
+	}
+
+	/**
+	 * Set configuration
+	 * 
+	 * @param conf
+	 *            configuration
+	 */
+
+	public void setConf(Configuration conf) {
+		this.conf = conf;
+	}
+
+	/**
+	 * Delete file in HDFS
+	 * 
+	 * @param path
+	 *            path of delete file
+	 */
+
+	public abstract void deleteFile(String path);
 }

@@ -15,38 +15,53 @@ import java.util.Observer;
  * Created by apirat on 5/3/15 AD.
  */
 public abstract class Pearson implements Observer, CalculateAble {
-    protected FileStatus        currentFile;
-    protected JavaSparkContext  ctx;
-    protected HadoopIO          hadoopIO;
+	protected FileStatus currentFile;
+	protected JavaSparkContext ctx;
+	protected HadoopIO hadoopIO;
 
-    protected String		    hdfsPath;
-    protected String			dataPath;
-    
-    protected abstract void upload(File file);
+	protected String hdfsPath;
+	protected String dataPath;
 
-    protected abstract void writeFile(ArrayList<JSONArray> input, Path filePath);
+	/**
+	 * upload file to HDFS
+	 * 
+	 * @param file
+	 *            file to upload
+	 */
+	protected abstract void upload(File file);
 
-    public FileStatus getCurrentFile() {
-        return currentFile;
-    }
+	/**
+	 * Write result form naive bayes to file
+	 * 
+	 * @param input
+	 *            result form naive bayes
+	 * @param filename
+	 *            Local path file
+	 * @return file is write success
+	 */
+	protected abstract void writeFile(ArrayList<JSONArray> input, Path filePath);
 
-    public void setCurrentFile(FileStatus currentFile) {
-        this.currentFile = currentFile;
-    }
+	public FileStatus getCurrentFile() {
+		return currentFile;
+	}
 
-    public String getDataPath() {
-        return dataPath;
-    }
+	public void setCurrentFile(FileStatus currentFile) {
+		this.currentFile = currentFile;
+	}
 
-    public void setDataPath(String dataPath) {
-        this.dataPath = dataPath;
-    }
+	public String getDataPath() {
+		return dataPath;
+	}
 
-    public String getHdfsPath() {
-        return hdfsPath;
-    }
+	public void setDataPath(String dataPath) {
+		this.dataPath = dataPath;
+	}
 
-    public void setHdfsPath(String hdfsPath) {
-        this.hdfsPath = hdfsPath;
-    }
+	public String getHdfsPath() {
+		return hdfsPath;
+	}
+
+	public void setHdfsPath(String hdfsPath) {
+		this.hdfsPath = hdfsPath;
+	}
 }

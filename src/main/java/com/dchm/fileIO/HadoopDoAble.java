@@ -12,13 +12,50 @@ import java.util.ArrayList;
  *
  */
 public interface HadoopDoAble {
-    public boolean copyFileToHDFS(File file, String path);
+	/**
+	 * Copy file to HDFS
+	 * 
+	 * @param file
+	 *            file to copy
+	 * @param path
+	 *            path of file
+	 */
+	public boolean copyFileToHDFS(File file, String path);
 
-    public boolean fileIsExist(String path);
+	/**
+	 * Check file is exist
+	 * 
+	 * @param path
+	 *            path of file
+	 * @return if file is exist return true else return false
+	 */
+	public boolean fileIsExist(String path);
 
-    public ArrayList<FileStatus> listDirectory(String path);
+	/**
+	 * List file in directory
+	 * 
+	 * @param path
+	 *            path of directory
+	 * @return array list of file
+	 */
+	public ArrayList<FileStatus> listDirectory(String path);
 
-    public ArrayList<String> readFileFromHDFS(String path);
+	/**
+	 * read text file from HDFS
+	 * 
+	 * @param path
+	 *            path of file
+	 * @return array list of string
+	 */
+	public ArrayList<String> readFileFromHDFS(String path);
 
-    public boolean createLogFile(String path);
+	/**
+	 * Create Log file
+	 * 
+	 * @param path
+	 *            path of log file
+	 * @return if success return true else return false
+	 */
+
+	public boolean createLogFile(String path);
 }

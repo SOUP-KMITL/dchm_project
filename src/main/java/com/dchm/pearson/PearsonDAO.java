@@ -150,7 +150,7 @@ public class PearsonDAO extends Pearson {
 
     /**
      *
-     * Written by shadowslight
+     * Write result file
      *
      * @param input     JSON list to write into file
      * @param filePath  Local Path file
