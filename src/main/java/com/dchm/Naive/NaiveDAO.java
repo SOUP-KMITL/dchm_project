@@ -1,6 +1,16 @@
-package com.dchm.naive;
+package com.dchm.Naive;
 
-import com.dchm.fileio.HadoopIO;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Observable;
+import java.util.regex.Pattern;
+
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -14,18 +24,10 @@ import org.apache.spark.mllib.regression.LabeledPoint;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
 import scala.Tuple3;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Observable;
-import java.util.regex.Pattern;
+import com.dchm.fileIO.HadoopIO;
 
 /**
  * Created by apirat on 5/3/15 AD.

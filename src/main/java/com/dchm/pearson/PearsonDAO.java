@@ -1,6 +1,18 @@
 package com.dchm.pearson;
 
-import com.dchm.fileio.HadoopIO;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Observable;
+
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaDoubleRDD;
@@ -11,17 +23,10 @@ import org.apache.spark.mllib.stat.Statistics;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
 import scala.Tuple2;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.*;
+import com.dchm.fileIO.HadoopIO;
 
 /**
  * Created by apirat on 5/3/15 AD.

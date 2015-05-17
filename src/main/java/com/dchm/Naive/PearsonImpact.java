@@ -1,11 +1,4 @@
-package com.dchm.naive;
-
-import com.dchm.fileio.HadoopIO;
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.log4j.Logger;
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+package com.dchm.Naive;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,7 +8,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.log4j.Logger;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import com.dchm.fileIO.HadoopIO;
 
 /**
  * Created by apirat on 5/3/15 AD.

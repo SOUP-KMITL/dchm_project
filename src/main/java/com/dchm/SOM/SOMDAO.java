@@ -1,4 +1,4 @@
-package com.dchm.som;
+package com.dchm.SOM;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -22,7 +22,7 @@ import org.codehaus.jettison.json.JSONException;
 
 import scala.Tuple2;
 
-import com.dchm.fileio.HadoopIO;
+import com.dchm.fileIO.HadoopIO;
 
 /**
  * Created by apirat on 5/3/15 AD.

@@ -1,4 +1,7 @@
-package com.dchm.naive;
+package com.dchm.Naive;
+
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -8,11 +11,9 @@ import org.apache.spark.mllib.classification.NaiveBayesModel;
 import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.regression.LabeledPoint;
+
 import scala.Tuple2;
 import scala.Tuple3;
-
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 /**
  * Created by apirat on 5/3/15 AD.

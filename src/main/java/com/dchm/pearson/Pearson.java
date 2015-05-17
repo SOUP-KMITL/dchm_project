@@ -1,15 +1,16 @@
 package com.dchm.pearson;
 
-import com.dchm.base.CalculateAble;
-import com.dchm.fileio.HadoopIO;
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.spark.api.java.JavaSparkContext;
-import org.codehaus.jettison.json.JSONArray;
-
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Observer;
+
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.codehaus.jettison.json.JSONArray;
+
+import com.dchm.base.CalculateAble;
+import com.dchm.fileIO.HadoopIO;
 
 /**
  * Created by apirat on 5/3/15 AD.

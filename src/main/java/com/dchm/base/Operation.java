@@ -1,27 +1,27 @@
 package com.dchm.base;
 
-import com.dchm.fileio.HadoopIO;
-import com.dchm.naive.Naive;
-import com.dchm.naive.NaiveDAO;
-import com.dchm.performance.FindPerformance;
-import com.dchm.som.SOM;
-import com.dchm.som.SOMDAO;
-import com.dchm.configloader.ConfigProperty;
-import com.dchm.configloader.LoadProperty;
-import com.dchm.fileio.FileChecker;
-import com.dchm.fileio.FileCheckerDAO;
-import com.dchm.fileio.HadoopIODAO;
-import com.dchm.pearson.Pearson;
-import com.dchm.pearson.PearsonDAO;
+import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.Scanner;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 
-import java.io.File;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.util.Scanner;
+import com.dchm.Naive.Naive;
+import com.dchm.Naive.NaiveDAO;
+import com.dchm.SOM.SOM;
+import com.dchm.SOM.SOMDAO;
+import com.dchm.configLoader.ConfigProperty;
+import com.dchm.configLoader.LoadProperty;
+import com.dchm.fileIO.FileChecker;
+import com.dchm.fileIO.FileCheckerDAO;
+import com.dchm.fileIO.HadoopIODAO;
+import com.dchm.pearson.Pearson;
+import com.dchm.pearson.PearsonDAO;
+import com.dchm.performance.FindPerformance;
 
 /**
  * Created by apirat on 5/2/15 AD.

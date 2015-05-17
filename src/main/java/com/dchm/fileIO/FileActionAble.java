@@ -1,4 +1,4 @@
-package com.dchm.fileio;
+package com.dchm.fileIO;
 
 import org.apache.hadoop.fs.FileStatus;
 

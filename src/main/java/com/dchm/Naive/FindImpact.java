@@ -1,8 +1,8 @@
-package com.dchm.naive;
-
-import com.dchm.fileio.HadoopIO;
+package com.dchm.Naive;
 
 import java.io.File;
+
+import com.dchm.fileIO.HadoopIO;
 
 /**
  * Created by apirat on 5/3/15 AD.

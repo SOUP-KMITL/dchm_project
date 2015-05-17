@@ -1,4 +1,4 @@
-package com.dchm.configloader;
+package com.dchm.configLoader;
 
 
 public abstract class ConfigProperty implements LoadConfig {

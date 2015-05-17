@@ -1,15 +1,17 @@
 package com.dchm.performance;
 
-import com.dchm.fileio.HadoopIO;
-import com.dchm.fileio.HadoopIODAO;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+
 import scala.Tuple2;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.dchm.fileIO.HadoopIO;
+import com.dchm.fileIO.HadoopIODAO;
 
 /**
  * Created by apirat on 5/16/15 AD.

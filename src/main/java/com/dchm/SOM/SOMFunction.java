@@ -1,4 +1,4 @@
-package com.dchm.som;
+package com.dchm.SOM;
 
 import java.util.ArrayList;
 import java.util.Arrays;

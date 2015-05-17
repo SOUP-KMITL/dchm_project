@@ -1,15 +1,16 @@
-package com.dchm.naive;
+package com.dchm.Naive;
 
-import com.dchm.base.CalculateAble;
-import com.dchm.fileio.HadoopIO;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Observer;
+
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.mllib.classification.NaiveBayesModel;
 import org.codehaus.jettison.json.JSONObject;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Observer;
+import com.dchm.base.CalculateAble;
+import com.dchm.fileIO.HadoopIO;
 
 /**
  * Created by apirat on 5/3/15 AD.
