@@ -35,17 +35,44 @@ public class PerformanceSparkFunction {
                 }
 
                 if (vPerf != null) {
-                    int period = interval / Integer.parseInt(sampleCSV);
-                    String[] tokenizer = vPerf.split(",");
-                    int tmpValue = 0;
-                    for (int i = tokenizer.length - 1; i >= tokenizer.length - period; i--) {
+                    if(Integer.parseInt(sampleCSV) == 300) {
+                        int period = interval / Integer.parseInt(sampleCSV);
+                        String[] tokenizer = vPerf.split(",");
+                        int tmpValue = 0;
+                        for (int i = tokenizer.length - 1; i >= tokenizer.length - period; i--) {
 
-                        tmpValue = Integer.parseInt(tokenizer[i]);
-                        if (tmpValue > maxValue && tmpValue > percent * 100) {
-                            maxValue = tmpValue;
+                            tmpValue = Integer.parseInt(tokenizer[i]);
+                            if (tmpValue > maxValue && tmpValue > percent * 100) {
+                                maxValue = tmpValue;
+                            }
+                        }
+                        return new Tuple2<String, Integer>(vmname, maxValue);
+                    } else {
+                        if(interval >= 3600) {
+                            String[] tokenizer = vPerf.split(",");
+                            int tmpValue = 0;
+                            for (int i = 0; i < tokenizer.length; i++) {
+
+                                tmpValue = Integer.parseInt(tokenizer[i]);
+                                if (tmpValue > maxValue && tmpValue > percent * 100) {
+                                    maxValue = tmpValue;
+                                }
+                            }
+                            return new Tuple2<String, Integer>(vmname, maxValue);
+                        } else {
+                            int period = interval / Integer.parseInt(sampleCSV);
+                            String[] tokenizer = vPerf.split(",");
+                            int tmpValue = 0;
+                            for (int i = tokenizer.length - 1; i >= tokenizer.length - period; i--) {
+
+                                tmpValue = Integer.parseInt(tokenizer[i]);
+                                if (tmpValue > maxValue && tmpValue > percent * 100) {
+                                    maxValue = tmpValue;
+                                }
+                            }
+                            return new Tuple2<String, Integer>(vmname, maxValue);
                         }
                     }
-                    return new Tuple2<String, Integer>(vmname, maxValue);
                 }
                 return new Tuple2<String, Integer>(vmname, -1);
             }

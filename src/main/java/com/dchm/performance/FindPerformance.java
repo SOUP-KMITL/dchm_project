@@ -41,7 +41,9 @@ public class FindPerformance {
         data = PerformanceSparkFunction.filterData(file, this.percent, this.perfID, this.interval);
         for(Tuple2<String, Integer> a : data.collect()) {
             if(a == null) continue;
-            System.out.println("name=" + a._1() + "\t" + "percent=" + a._2());
+            if(a._2() >= this.percent * 100) {
+                System.out.println("name= " + a._1() + "\t" + "percent= " + (a._2() / 100) + "%");
+            }
         }
     }
 
